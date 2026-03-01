@@ -1,31 +1,35 @@
-import { Sidebar } from "./components/Sidebar/SideBar"
-import { useEffect, useState } from "react"
-import type { ICountryShort } from "./types"
-import { BASE_URL } from "./constans"
+import { Sidebar } from "./components/Sidebar/Sidebar";
+import { useEffect, useState } from "react";
+import type { ICountryShort } from "./types";
+import { BASE_URL } from "./constans";
 
 function App() {
-  const [countriesList, setCountriesList] = useState<ICountryShort[]>([])
+  const [countriesList, setCountriesList] = useState<ICountryShort[]>([]);
 
   useEffect(() => {
-    const getCountries = async() => {
-      try{
-        const response = await fetch(`${BASE_URL}/all?fields=alpha3Code,name`)
+    const getCountries = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/all?fields=alpha3Code,name`);
         if (!response.ok) {
-          throw new Error
+          throw new Error();
         }
-        const data:ICountryShort[] = await response.json()
-        console.log('data', data)
-      } catch(e) {
-        console.log(e)
+        const data: ICountryShort[] = await response.json();
+        setCountriesList(data);
+      } catch (e) {
+        console.log(e);
       }
-    }
-    getCountries()
-  },[])
+    };
+    getCountries();
+  }, []);
+
   return (
     <>
-    <Sidebar/>
+      <Sidebar
+        countries={countriesList}
+        onSelect={(alpha3Code) => console.log(alpha3Code)}
+      />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

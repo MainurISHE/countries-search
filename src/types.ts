@@ -4,6 +4,11 @@ export interface ICountryShort {
     independent: boolean;
 }
 
-// export interface ICountry {
-
-// }
+export interface ICountryFull {
+    name: string;
+    capital: string;
+    population: number;
+    borders: string[];
+    flag: string;
+    alpha3code: string;
+}
